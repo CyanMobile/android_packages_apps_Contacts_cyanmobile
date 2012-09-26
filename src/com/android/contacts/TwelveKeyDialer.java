@@ -186,7 +186,10 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
 	    
     //Pick-Up-To-Call
     private EarDetector mEarDetector;
-    
+    private boolean mDigitsFilledByIntent;
+
+    private static final String PREF_DIGITS_FILLED_BY_INTENT = "pref_digits_filled_by_intent";
+
     /**
      * Identifier for intent extra for sending an empty Flash message for
      * CDMA networks. This message is used by the network to simulate a
@@ -237,7 +240,7 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
     }
 
     public void afterTextChanged(Editable input) {
-        if (SpecialCharSequenceMgr.handleChars(this, input.toString(), mDigits)) {
+        if (!mDigitsFilledByIntent && SpecialCharSequenceMgr.handleChars(this, input.toString(), mDigits)) {
             // A special sequence was entered, clear the digits
             mDigits.getText().clear();
         }
@@ -245,6 +248,7 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
         if (!isDigitsEmpty()) {
             mDigits.setBackgroundDrawable(mDigitsBackground);
         } else {
+            mDigitsFilledByIntent = false;
             mDigits.setCursorVisible(false);
             mDigits.setBackgroundDrawable(mDigitsEmptyBackground);
         }
@@ -338,11 +342,21 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
             super.onRestoreInstanceState(icicle);
         }
 
+        if (icicle != null) {
+            mDigitsFilledByIntent = icicle.getBoolean(PREF_DIGITS_FILLED_BY_INTENT);
+        }
+
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle icicle) {
         // Do nothing, state is restored in onCreate() if needed
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle icicle) {
+        super.onSaveInstanceState(icicle);
+        icicle.putBoolean(PREF_DIGITS_FILLED_BY_INTENT, mDigitsFilledByIntent);
     }
 
     protected void maybeAddNumberFormatting() {
@@ -388,6 +402,7 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
                     // Put the requested number into the input area
                     String data = uri.getSchemeSpecificPart();
                     setFormattedDigits(data);
+                    mDigitsFilledByIntent = true;
                 } else {
                     String type = intent.getType();
                     if (Contacts.CONTENT_ITEM_TYPE.equals(type)
@@ -397,6 +412,7 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
                                 new String[] {PhonesColumns.NUMBER}, null, null, null);
                         if (c != null) {
                             if (c.moveToFirst()) {
+                                mDigitsFilledByIntent = true;
                                 // Put the number into the input area
                                 setFormattedDigits(c.getString(0));
                             }
