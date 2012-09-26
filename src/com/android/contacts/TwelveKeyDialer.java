@@ -354,9 +354,9 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle icicle) {
-        super.onSaveInstanceState(icicle);
-        icicle.putBoolean(PREF_DIGITS_FILLED_BY_INTENT, mDigitsFilledByIntent);
+    protected void onSaveInstanceState(Bundle ocicle) {
+        super.onSaveInstanceState(ocicle);
+        ocicle.putBoolean(PREF_DIGITS_FILLED_BY_INTENT, mDigitsFilledByIntent);
     }
 
     protected void maybeAddNumberFormatting() {
@@ -401,8 +401,8 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
                 if ("tel".equals(uri.getScheme())) {
                     // Put the requested number into the input area
                     String data = uri.getSchemeSpecificPart();
-                    setFormattedDigits(data);
                     mDigitsFilledByIntent = true;
+                    setFormattedDigits(data);
                 } else {
                     String type = intent.getType();
                     if (Contacts.CONTENT_ITEM_TYPE.equals(type)

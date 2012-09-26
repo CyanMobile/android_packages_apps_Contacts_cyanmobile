@@ -182,15 +182,15 @@ public class SpecialCharSequenceMgr {
     }
 
     static boolean handleIMEIDisplay(Context context, String input, boolean useSystemWindow) {
-        if (input.equals(MMI_IMEI_DISPLAY)) {
-            int phoneType = ((TelephonyManager)context.getSystemService(
-                    Context.TELEPHONY_SERVICE)).getPhoneType();
-
+        TelephonyManager telephonyManager =
+                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null &&input.equals(MMI_IMEI_DISPLAY)) {
+            int phoneType = telephonyManager.getPhoneType();
             if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
-                showIMEIPanel(context, useSystemWindow);
+                showIMEIPanel(context, useSystemWindow, telephonyManager);
                 return true;
             } else if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
-                showMEIDPanel(context, useSystemWindow);
+                showMEIDPanel(context, useSystemWindow, telephonyManager);
                 return true;
             }
         }
@@ -198,9 +198,8 @@ public class SpecialCharSequenceMgr {
         return false;
     }
 
-    static void showIMEIPanel(Context context, boolean useSystemWindow) {
-        String imeiStr = ((TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE))
-                .getDeviceId();
+    private static void showIMEIPanel(Context context, boolean useSystemWindow, TelephonyManager telephonyManager) {
+        String imeiStr = telephonyManager.getDeviceId();
 
         AlertDialog alert = new AlertDialog.Builder(context)
                 .setTitle(R.string.imei)
@@ -211,9 +210,8 @@ public class SpecialCharSequenceMgr {
         alert.getWindow().setType(WindowManager.LayoutParams.TYPE_PRIORITY_PHONE);
     }
 
-    static void showMEIDPanel(Context context, boolean useSystemWindow) {
-        String meidStr = ((TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE))
-                .getDeviceId();
+    private static void showMEIDPanel(Context context, boolean useSystemWindow, TelephonyManager telephonyManager) {
+        String meidStr = telephonyManager.getDeviceId();
 
         AlertDialog alert = new AlertDialog.Builder(context)
                 .setTitle(R.string.meid)
