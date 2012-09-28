@@ -235,12 +235,5 @@
                 android:summary="@string/summary_about_credits"
                 android:enabled="false" />
         </PreferenceScreen>
-        <!-- CMContacts -->
-        <PreferenceScreen android:key="cmcontacts_settings"
-            android:title="@string/cmcontacts_title" android:summary="@string/cmcontacts_summary">
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.cyanogenmod.cmcontacts"
-                android:targetClass="com.cyanogenmod.cmcontacts.ManageContactsActivity" />
-        </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>

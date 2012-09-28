@@ -694,7 +694,7 @@
     <string name="searching_vcard_title">Searching for vCard</string>
 
     <!-- Action string for selecting SIM for importing contacts -->
-    <string name="import_from_sim">Import from SIM card</string>
+    <string name="import_from_sim">Manage contact from SIM card</string>
 
     <!-- Action string for selecting USB storage for importing contacts [CHAR LIMIT=25] -->
     <string name="import_from_sdcard" product="nosdcard">Import from USB storage</string>
