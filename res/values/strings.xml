@@ -693,8 +693,11 @@
     <!-- Dialog title shown when searching VCard data from SD Card -->
     <string name="searching_vcard_title">Searching for vCard</string>
 
-    <!-- Action string for selecting SIM for importing contacts -->
-    <string name="import_from_sim">Manage contact from SIM card</string>
+    <!-- Action string for managing SIM contacts -->
+    <string name="manage_sim_contacts"> Manage SIM card contacts</string>
+
+    <!-- Action that exports all contacts to SIM -->
+    <string name="export_to_sim">Export to SIM card</string>
 
     <!-- Action string for selecting USB storage for importing contacts [CHAR LIMIT=25] -->
     <string name="import_from_sdcard" product="nosdcard">Import from USB storage</string>
