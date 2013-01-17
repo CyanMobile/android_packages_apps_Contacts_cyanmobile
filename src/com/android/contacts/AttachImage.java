@@ -127,8 +127,8 @@ public class AttachImage extends Activity {
             intent.putExtra("crop", "true");
             intent.putExtra("aspectX", 1);
             intent.putExtra("aspectY", 1);
-            intent.putExtra("outputX", 96);
-            intent.putExtra("outputY", 96);
+            intent.putExtra("outputX", 256);
+            intent.putExtra("outputY", 256);
             intent.putExtra("return-data", true);
             startActivityForResult(intent, REQUEST_CROP_PHOTO);
 
@@ -148,7 +148,7 @@ public class AttachImage extends Activity {
                 Bitmap photo = extras.getParcelable("data");
                 if (photo != null) {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);
+                    photo.compress(Bitmap.CompressFormat.JPEG, 90, stream);
 
                     final ContentValues imageValues = new ContentValues();
                     imageValues.put(Photo.PHOTO, stream.toByteArray());

@@ -1198,7 +1198,8 @@
     
     <!-- Wysie: Menu strings -->
     <string name="menu_preferences">Preferences</string>
-    
+    <string name="menu_callpreferences">Call Settings</string>
+
     <!-- Wysie: Dialer strings -->
     <string name="dialer_menu_sms">SMS/MMS</string>
     

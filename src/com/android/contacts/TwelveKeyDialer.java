@@ -163,7 +163,7 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
     private long[] mVibratePattern;
     
     //Wysie
-    private MenuItem mSmsMenuItem, mPreferences;
+    private MenuItem mSmsMenuItem, mPreferences, mCallPreferences;
     private SharedPreferences ePrefs;
     private boolean prefVibrateOn, retrieveLastDialled, returnToDialer;
     
@@ -172,6 +172,7 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
 
     private static final int MENU_SMS = 4;
     private static final int MENU_PREFERENCES = 5;
+    private static final int MENU_CALLPREFERENCES = 6;
 
     /** Identifier for the "Add Call" intent extra. */
     static final String ADD_CALL_MODE_KEY = "add_call_mode";
@@ -849,8 +850,14 @@ public class TwelveKeyDialer extends Activity implements View.OnClickListener,
                 .setIcon(R.drawable.ic_menu_smsmms);
         mPreferences = menu.add(0, MENU_PREFERENCES, 0, R.string.menu_preferences)
                 .setIcon(android.R.drawable.ic_menu_preferences);
+        mCallPreferences = menu.add(0, MENU_CALLPREFERENCES, 0, R.string.menu_callpreferences)
+                .setIcon(android.R.drawable.ic_menu_preferences);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.speed_dial_list, menu);
+        Intent icallset = new Intent(Intent.ACTION_MAIN);
+        icallset.setClassName("com.android.phone",
+                     "com.android.phone.CallFeaturesSetting");
+        mCallPreferences.setIntent(icallset);
         //Wysie_Soh: Preferences intent
         mPreferences.setIntent(new Intent(this, ContactsPreferences.class));
         return true;

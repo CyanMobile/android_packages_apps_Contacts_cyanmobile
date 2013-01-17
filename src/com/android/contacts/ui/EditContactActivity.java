@@ -128,7 +128,7 @@ public final class EditContactActivity extends Activity
     private static final int DIALOG_CONFIRM_MULTIPLE_DELETE = 3;
     private static final int DIALOG_CONFIRM_READONLY_HIDE = 4;
 
-    private static final int ICON_SIZE = 96;
+    private static final int ICON_SIZE = 256;
 
     private static final File PHOTO_DIR = new File(
             Environment.getExternalStorageDirectory() + "/DCIM/Camera");
